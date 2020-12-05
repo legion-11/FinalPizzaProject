@@ -1,9 +1,11 @@
 package com.dmytroandriichuk.finallpizzaproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -51,6 +53,18 @@ class OrderPizzaActivity : AppCompatActivity() {
         pizzaSizesRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             rescaleImage(i)
         }
+
+        val confirmButton = findViewById<Button>(R.id.confirmPizzaButton)
+        confirmButton.setOnClickListener {
+            saveOrderAndOpenMapActivity()
+        }
+        // TODO: 05.12.2020 price calculation
+    }
+
+    private fun saveOrderAndOpenMapActivity() {
+        // TODO: 05.12.2020 save order in intent
+        val newIntent = Intent(this@OrderPizzaActivity, MapActivity::class.java)
+        startActivity(newIntent)
     }
 
     override fun onBackPressed() {
