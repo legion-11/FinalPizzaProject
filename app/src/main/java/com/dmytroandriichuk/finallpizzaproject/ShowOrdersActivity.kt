@@ -17,9 +17,13 @@ import java.util.*
 
 class ShowOrdersActivity : AppCompatActivity() {
 
+    private lateinit var querry: Query
+
+    private var listener: ValueEventListener? = null
+
     private lateinit var database: FirebaseDatabase
     private lateinit var mAuth: FirebaseAuth
-
+    private var orders: List<Order> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_orders)
@@ -27,11 +31,11 @@ class ShowOrdersActivity : AppCompatActivity() {
         database = Firebase.database
 
 
-        if (false){
-            saveOrderToDB()
-        }
+        if (intent.getBooleanExtra("AddPizza", false)){ saveOrderToDB() }
+
+        loadFromFireBaseDB(this)
         if (isOnline()) {
-            loadFromFireBaseDB(this)
+
         } else {
             loadFromLocalDB()
         }
@@ -42,31 +46,27 @@ class ShowOrdersActivity : AppCompatActivity() {
     }
 
     private fun loadFromFireBaseDB(context: Context) {
-        val querry = database.getReference("Order").orderByChild("userId").equalTo(mAuth.currentUser?.uid)
+        querry = database.getReference("Order").orderByChild("userId").equalTo(mAuth.currentUser?.uid)
 
-        querry.addValueEventListener(
-            object : ValueEventListener {
-                var i = 0
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
-
-                        for (childSnapshot in snapshot.children) {
-                            val order = childSnapshot.getValue(Order::class.java)
-                            Log.i("loadFromFireBaseDB", "onDataChange: " + order.toString())
-                            Log.i("loadFromFireBaseDB", "onDataChange: " + i.toString())
-                            i+=1
-                        }
-                    } else {
-                        Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()
+        listener = object: ValueEventListener  {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    orders = emptyList()
+                    for (childSnapshot in snapshot.children) {
+                        val order = childSnapshot.getValue(Order::class.java)
+                        orders.plus(order)
+                        Log.i("loadFromFireBaseDB", "onDataChange: " + order.toString())
                     }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
+                } else {
                     Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()
                 }
             }
-        )
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()
+            }
+        }
+        querry.addValueEventListener(listener as ValueEventListener)
        // TODO("Not yet implemented")
     }
 
@@ -127,5 +127,10 @@ class ShowOrdersActivity : AppCompatActivity() {
         }
         Log.i("Internet", "No network")
         return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (listener != null) { querry.removeEventListener(listener as ValueEventListener) }
     }
 }
