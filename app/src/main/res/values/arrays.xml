@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="pizzzaDrawables">
+        <item>@drawable/cheese_x4_v2</item>
+        <item>@drawable/dorblue_cheese</item>
+        <item>@drawable/emily</item>
+        <item>@drawable/paperoni</item>
+    </integer-array>
+
+    <string-array name="pizzaNames">
+        <item>Four cheeses</item>
+        <item>Dorblue cheese</item>
+        <item>Emily</item>
+        <item>Peperon</item>
+    </string-array>
+</resources>
