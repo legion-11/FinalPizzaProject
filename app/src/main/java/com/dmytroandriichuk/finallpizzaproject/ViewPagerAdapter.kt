@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ViewPagerAdapter(private val imagesId: IntArray) : RecyclerView.Adapter<PagerVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
-        PagerVH(LayoutInflater.from(parent.context).inflate(R.layout.item_page, parent, false))
+        PagerVH(LayoutInflater.from(parent.context).inflate(R.layout.item_image_page, parent, false))
 
     override fun getItemCount(): Int = imagesId.size
 

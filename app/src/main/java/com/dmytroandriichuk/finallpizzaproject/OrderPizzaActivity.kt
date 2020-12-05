@@ -7,17 +7,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
+import kotlin.system.exitProcess
 
 
 class OrderPizzaActivity : AppCompatActivity() {
+    private var size: Int? = null
     private lateinit var viewPager: ViewPager2
     private lateinit var imageSizes: Array<String>
-
+    private var startTime: Long = System.currentTimeMillis()
+    private val toppingsArray = emptyArray<String>()
+    private var price = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_pizza)
@@ -59,18 +65,29 @@ class OrderPizzaActivity : AppCompatActivity() {
             saveOrderAndOpenMapActivity()
         }
         // TODO: 05.12.2020 price calculation
+
     }
 
     private fun saveOrderAndOpenMapActivity() {
-        // TODO: 05.12.2020 save order in intent
-        val newIntent = Intent(this@OrderPizzaActivity, MapActivity::class.java)
+        val newIntent = Intent(this@OrderPizzaActivity, MapActivity::class.java).apply {
+            putExtra("pizza type", title)
+            putExtra("size", size)
+            putExtra("toppings", toppingsArray)
+            putExtra("price", price)
+        }
         startActivity(newIntent)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
-        Log.i("goBack", "onBackPressed: ")
+        if (System.currentTimeMillis() - startTime < 2000){
+            finishAffinity()
+            exitProcess(0);
+        } else {
+            Toast.makeText(this,
+                "Press one more time to close app.\nYou won't be Logged Out of your account",
+                Toast.LENGTH_LONG).show()
+            startTime = System.currentTimeMillis()
+        }
     }
 
     private fun rescaleImage(radioButtonId: Int) {
@@ -80,6 +97,7 @@ class OrderPizzaActivity : AppCompatActivity() {
             R.id.radioButtonLarge -> 2
             else-> 3
         }
+        size = scalerIndex
         viewPager.scaleX = imageSizes[scalerIndex].toFloat()
         viewPager.scaleY = imageSizes[scalerIndex].toFloat()
     }

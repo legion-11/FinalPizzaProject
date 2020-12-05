@@ -1,4 +1,4 @@
-package com.dmytroandriichuk.finallpizzaproject
+package com.dmytroandriichuk.finallpizzaproject.dataClasses
 
 import com.google.firebase.database.IgnoreExtraProperties
 

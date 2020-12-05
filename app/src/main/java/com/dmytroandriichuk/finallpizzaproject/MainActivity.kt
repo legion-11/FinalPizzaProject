@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                     val user = mAuth.currentUser
                     if (user != null) {
                         if (user.isEmailVerified){
+                            // TODO: 05.12.2020 save email to shared pref
                             intent = Intent(this@MainActivity, OrderPizzaActivity::class.java)
                             startActivity(intent)
                         } else {
