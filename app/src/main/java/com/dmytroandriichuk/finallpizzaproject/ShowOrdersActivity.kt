@@ -7,6 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dmytroandriichuk.finallpizzaproject.dataClasses.Order
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -17,13 +21,14 @@ import java.util.*
 
 class ShowOrdersActivity : AppCompatActivity() {
 
+    private lateinit var recyclerView: RecyclerView
     private lateinit var querry: Query
 
     private var listener: ValueEventListener? = null
 
     private lateinit var database: FirebaseDatabase
     private lateinit var mAuth: FirebaseAuth
-    private var orders: List<Order> = emptyList()
+    private var ordersLiveData: MutableLiveData<List<Order>> = MutableLiveData()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_orders)
@@ -32,13 +37,25 @@ class ShowOrdersActivity : AppCompatActivity() {
 
 
         if (intent.getBooleanExtra("AddPizza", false)){ saveOrderToDB() }
+        // progress bar start
+
+        recyclerView = findViewById<RecyclerView>(R.id.ordersReciclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
+
+        ordersLiveData.observe(this, {
+            Log.i("TAG", "onCreate: liveDataObserved")
+            recyclerView.adapter = OrdersAdapter(it)
+            Log.i("TAG", "onCreate: $it")
+        })
 
         loadFromFireBaseDB(this)
-        if (isOnline()) {
 
-        } else {
+        if (!isOnline()) {
             loadFromLocalDB()
         }
+        // progress bar end
+
     }
 
     private fun loadFromLocalDB() {
@@ -51,12 +68,16 @@ class ShowOrdersActivity : AppCompatActivity() {
         listener = object: ValueEventListener  {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    orders = emptyList()
+                    val orders = mutableListOf<Order>()
                     for (childSnapshot in snapshot.children) {
                         val order = childSnapshot.getValue(Order::class.java)
-                        orders.plus(order)
+                        order?.let {orders.add(it)}
+
+                        Log.i("loadFromFireBaseDB", "onDataChange: " + orders)
                         Log.i("loadFromFireBaseDB", "onDataChange: " + order.toString())
                     }
+                    Log.i("loadFromFireBaseDB", "onDataChange: " + orders)
+                    ordersLiveData.value = orders
                 } else {
                     Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()
                 }
@@ -67,7 +88,7 @@ class ShowOrdersActivity : AppCompatActivity() {
             }
         }
         querry.addValueEventListener(listener as ValueEventListener)
-       // TODO("Not yet implemented")
+       // TODO("save in db somehow")
     }
 
     private fun saveOrderToDB() {
