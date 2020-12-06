@@ -48,13 +48,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        app:layout_constraintBottom_toTopOf="@+id/ForgetPasswordTV"
+        app:layout_constraintBottom_toTopOf="@+id/forgetPasswordTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
 
     <TextView
-        android:id="@+id/ForgetPasswordTV"
+        android:id="@+id/forgetPasswordTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ForgetPassword"
@@ -72,8 +72,8 @@
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ForgetPasswordTV"
-        app:layout_constraintTop_toTopOf="@+id/ForgetPasswordTV" />
+        app:layout_constraintStart_toEndOf="@+id/forgetPasswordTV"
+        app:layout_constraintTop_toTopOf="@+id/forgetPasswordTV" />
 
     <ProgressBar
         android:id="@+id/logInProgressBar"

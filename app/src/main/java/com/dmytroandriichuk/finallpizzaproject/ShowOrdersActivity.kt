@@ -36,7 +36,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         database = Firebase.database
 
 
-        if (intent.getBooleanExtra("AddPizza", false)){ saveOrderToDB() }
+        if (intent.getBooleanExtra("Payment Success", false)){ saveOrderToDB() }
         // TODO("add progress bar")
         // progress bar start
 

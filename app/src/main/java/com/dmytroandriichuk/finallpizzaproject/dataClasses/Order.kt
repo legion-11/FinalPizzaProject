@@ -19,6 +19,7 @@ data class Order (
     var status:Int? = 0,
 ) {
     override fun toString(): String {
-        return "Order(userId=$userId, name=$name, address=$address, flat=$flat, lat=$lat, lon=$lon, phone=$phone, pizza=$pizza, size=$size, toppings=$toppings, price=$price, date=$date)"
+        return "Order(userId=$userId, name=$name, address=$address, flat=$flat, lat=$lat, lon=$lon," +
+                " phone=$phone, pizza=$pizza, size=$size, toppings=$toppings, price=$price, date=$date, status=$status, )"
     }
 }

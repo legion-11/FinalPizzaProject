@@ -117,6 +117,10 @@ class OrderPizzaActivity : AppCompatActivity() {
         R.id.action_show_history -> {
             // User chose the "History" action
             Log.i("OrderActivity", "onOptionsItemSelected: History")
+            intent = Intent(this@OrderPizzaActivity, ShowOrdersActivity::class.java).apply {
+                putExtra("Payment Success", false)
+            }
+            startActivity(intent)
             true
         }
 
@@ -134,4 +138,6 @@ class OrderPizzaActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
+
 }

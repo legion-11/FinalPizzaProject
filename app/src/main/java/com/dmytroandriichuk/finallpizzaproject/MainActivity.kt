@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
             userLogIn()
         }
 
-        val forgetPasswordButton = findViewById<TextView>(R.id.ForgetPasswordTV)
+        val forgetPasswordButton = findViewById<TextView>(R.id.forgetPasswordTV)
         forgetPasswordButton.setOnClickListener {
-            // TODO not implemented
+            goToRestorePasswordActivity()
         }
 
         // Write a message to the database
@@ -134,6 +134,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToRegisterActivity() {
         intent = Intent(this@MainActivity, RegistrationActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToRestorePasswordActivity() {
+        intent = Intent(this@MainActivity, RestorePasswordActivity::class.java)
         startActivity(intent)
     }
 
