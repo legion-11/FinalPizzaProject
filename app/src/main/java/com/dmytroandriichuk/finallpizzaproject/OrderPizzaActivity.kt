@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -24,6 +25,7 @@ class OrderPizzaActivity : AppCompatActivity() {
     private var startTime: Long = Date(0).time
     private val toppingsArray = emptyArray<String>()
     private var price = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_pizza)
@@ -39,6 +41,8 @@ class OrderPizzaActivity : AppCompatActivity() {
         }
         typedArray.recycle()
         viewPager.adapter = ViewPagerAdapter(imagesId)
+
+
 
         val names = resources.getStringArray(R.array.pizzaNames)
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -59,6 +63,23 @@ class OrderPizzaActivity : AppCompatActivity() {
         pizzaSizesRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             rescaleImage(i)
         }
+
+
+
+        // Needs fixing or removing
+        // Maybe needs switching case implementation dunno
+        // Needs further research
+
+        val seekBar: SeekBar = findViewById(R.id.seekBar)
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                rescaleImage(progress)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {    }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {     }
+        })
+
+
 
         val confirmButton = findViewById<Button>(R.id.confirmPizzaButton)
         confirmButton.setOnClickListener {
@@ -83,9 +104,11 @@ class OrderPizzaActivity : AppCompatActivity() {
             finishAffinity()
             exitProcess(0);
         } else {
-            Toast.makeText(this,
+            Toast.makeText(
+                this,
                 "Press one more time to close app.\nYou won't be Logged Out of your account",
-                Toast.LENGTH_LONG).show()
+                Toast.LENGTH_LONG
+            ).show()
             startTime = System.currentTimeMillis()
         }
     }
