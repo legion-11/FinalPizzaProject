@@ -105,7 +105,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
 
 
             val order = Order(currentUser.uid, name, address, flatNumber,
-                    lat, lng, phoneNumber, pizzaType, size, toppings, price, date, 0)
+                    lat, lng, phoneNumber, pizzaType, size, toppings, price, date)
 
             database.getReference("Order").push().setValue(order).addOnCompleteListener {
                 if (it.isSuccessful) {
