@@ -3,7 +3,9 @@ package com.dmytroandriichuk.finallpizzaproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -20,6 +22,7 @@ class RestorePasswordActivity : AppCompatActivity() {
         val emailET = findViewById<TextInputEditText>(R.id.restorePasswordET)
         val emailLayout = findViewById<TextInputLayout>(R.id.restorePasswordLayout)
         val button = findViewById<Button>(R.id.restorePasswordButton)
+        val probressBar = findViewById<ProgressBar>(R.id.restorepasswordProgressBar)
         button.setOnClickListener {
             var errors = false
             val email = emailET.text.toString().trim()
@@ -36,15 +39,16 @@ class RestorePasswordActivity : AppCompatActivity() {
             } else {
                 emailLayout.error = ""
             }
-
+            probressBar.visibility = View.VISIBLE
             if (errors) return@setOnClickListener
             mAuth.sendPasswordResetEmail(email).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Check your email", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this, "Something is wrong", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Check your email", Toast.LENGTH_LONG).show()
                 }
             }
+            probressBar.visibility = View.GONE
         }
     }
 }
