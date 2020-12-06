@@ -5,6 +5,12 @@
     <string name="large_size_descr">Large\n16\"</string>
     <string name="medium_size_descr">Medium\n14\"</string>
     <string name="small_size_descr">Small\n12\"</string>
+    <string name="pineapple">Pineapple</string>
+    <string name="chili">Chili</string>
+    <string name="olives">Olives</string>
+    <string name="shrimp">Shrimp</string>
+    <string name="cheese">Cheese</string>
+    <string name="pepperoni">Pepperoni</string>
 
 
 </resources>
