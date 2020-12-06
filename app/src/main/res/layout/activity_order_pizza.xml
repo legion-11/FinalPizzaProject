@@ -9,8 +9,8 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/imagePager"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -39,17 +39,20 @@
         app:layout_constraintTop_toBottomOf="@+id/imagePager"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
-        app:tabIndicatorHeight="0dp" />
+        app:tabIndicatorHeight="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <SeekBar
         android:id="@+id/seekBar"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_weight="3"
         android:max="3"
         android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pizzaSizesRadioGroup"
         app:layout_constraintWidth_percent="0.85" />
@@ -81,7 +84,6 @@
             android:layout_weight="1"
             android:checked="true"
             android:text="@string/medium_size_descr" />
-
 
         <RadioButton
             android:id="@+id/radioButtonLarge"
@@ -131,7 +133,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="112dp"
         android:checked="true"
         android:text="@string/chili"
@@ -151,14 +153,13 @@
         app:srcCompat="@drawable/pineapple" />
 
 
-
     <CheckBox
         android:id="@+id/checkBox2"
         style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="82dp"
         android:checked="true"
@@ -175,7 +176,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="81dp"
         android:checked="true"
@@ -198,13 +199,12 @@
         app:srcCompat="@drawable/shrimp" />
 
 
-
     <CheckBox
         android:id="@+id/checkBox4"
         style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="81dp"
         android:checked="true"
@@ -250,8 +250,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/priceTV"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintVertical_bias="0.026" />
 
 
     <!--  todo add all checkboxes  -->

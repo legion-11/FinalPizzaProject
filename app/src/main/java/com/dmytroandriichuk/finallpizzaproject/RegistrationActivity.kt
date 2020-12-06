@@ -30,6 +30,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var passwordLayout: TextInputLayout
     private lateinit var nameLayout: TextInputLayout
     private lateinit var progressBar: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
