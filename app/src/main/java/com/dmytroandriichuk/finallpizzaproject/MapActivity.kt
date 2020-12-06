@@ -17,6 +17,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
 
@@ -55,11 +56,42 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val flatNumberET = findViewById<TextInputEditText>(R.id.mapFlatNumberET)
         val phoneET = findViewById<TextInputEditText>(R.id.mapPhoneNumberET)
 
+        val nameLayout = findViewById<TextInputLayout>(R.id.mapNameLayout)
+        val addressLayout = findViewById<TextInputLayout>(R.id.mapAddressLayout)
+        val phoneLayout = findViewById<TextInputLayout>(R.id.mapPhoneNumberLayout)
+
         val backButton = findViewById<Button>(R.id.mapBackButton)
         backButton.setOnClickListener { finish() }
 
         val confirmButton = findViewById<Button>(R.id.mapConfirmButton)
         confirmButton.setOnClickListener {
+            var flag = true
+
+            val name = nameET.text.toString()
+            val address = addressET.text.toString()
+            val phone = phoneET.text.toString()
+            if (name.isEmpty()) {
+                nameLayout.error = "name is empty"
+                flag = false
+            } else {
+                nameLayout.error = ""
+            }
+            if (address.isEmpty()) {
+                addressLayout.error = "address is empty"
+                flag = false
+            } else {
+                addressLayout.error = ""
+            }
+            if (phone.isEmpty()) {
+                flag = false
+                phoneLayout.error = "phone number is empty"
+            } else {
+                phoneLayout.error = ""
+            }
+
+            // TODO: 05.12.2020 change flag delete !!!!!!!!!!!!!!!!!!!!
+            flag = true
+            if (!flag) return@setOnClickListener
             // TODO: 05.12.2020 provide data,  check input isEmpty!!!!
             val newIntent = Intent(this@MapActivity, PaymentActivity::class.java).apply {
                 putExtras(intent)
@@ -95,9 +127,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     //when map is ready we we activate change mat type button and allowing marker click
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
 //        findViewById<ImageButton>(R.id.changeMapType).setOnClickListener { changeMapType() }
     }
-
-
 }

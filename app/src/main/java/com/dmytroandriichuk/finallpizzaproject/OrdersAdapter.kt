@@ -1,7 +1,6 @@
 package com.dmytroandriichuk.finallpizzaproject
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dmytroandriichuk.finallpizzaproject.dataClasses.Order
 import java.util.*
 
-class OrdersAdapter(private val dataSet: List<Order?>): RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
+class OrdersAdapter(private val dataSet: List<Order?>,
+                    private val onOrderClickListener :OnOrderClickListener
+): RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, private val onOrderClickListener :OnOrderClickListener) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
         val nametv: TextView = view.findViewById(R.id.orderItemCustomerName)
         val addresstv: TextView = view.findViewById(R.id.orderItemAddress)
         val pizzatv: TextView = view.findViewById(R.id.orderItemPizzaType)
@@ -21,6 +23,14 @@ class OrdersAdapter(private val dataSet: List<Order?>): RecyclerView.Adapter<Ord
         val pricetv: TextView = view.findViewById(R.id.orderItemPrice)
         val orderStatusImage: ImageView = view.findViewById(R.id.orderItemStatusImage)
         val datetv: TextView = view.findViewById(R.id.orderItemDate)
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            onOrderClickListener.onOrderClick(adapterPosition)
+        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -29,7 +39,7 @@ class OrdersAdapter(private val dataSet: List<Order?>): RecyclerView.Adapter<Ord
         val view = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.item_orders, viewGroup, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, onOrderClickListener)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -56,4 +66,8 @@ class OrdersAdapter(private val dataSet: List<Order?>): RecyclerView.Adapter<Ord
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
+    public interface OnOrderClickListener {
+        fun onOrderClick(position: Int)
+    }
 }

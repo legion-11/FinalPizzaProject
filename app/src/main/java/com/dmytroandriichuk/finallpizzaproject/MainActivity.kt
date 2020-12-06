@@ -1,12 +1,17 @@
 package com.dmytroandriichuk.finallpizzaproject
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
@@ -106,20 +111,64 @@ class MainActivity : AppCompatActivity() {
                             intent = Intent(this@MainActivity, OrderPizzaActivity::class.java)
                             startActivity(intent)
                         } else {
-                            user.sendEmailVerification()
-                            Toast.makeText(this, "Account is not verified", Toast.LENGTH_LONG).show()
+                            buildDialog("Account is not verified")
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Failed to sign in", Toast.LENGTH_LONG).show()
+                    if(isOnline()){
+                        buildDialog("User not found")
+                    } else {
+                        buildDialog("Connection error")
+                    }
                 }
             }
         }
     }
 
+    private fun buildDialog(message: String){
+        val dialog = DialogOffline(message)
+        val manager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        dialog.show(transaction, "dialog")
+    }
+
     private fun goToRegisterActivity() {
         intent = Intent(this@MainActivity, RegistrationActivity::class.java)
         startActivity(intent)
+    }
+
+    fun goOfflineClicked() {
+        intent = Intent(this@MainActivity, ShowOrdersActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun sendVerificationLetter() {
+        mAuth.currentUser?.sendEmailVerification()
+    }
+
+    private fun isOnline(): Boolean {
+        val connectivityManager =
+                this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        Log.i("Internet", "No network")
+        return false
     }
 }
 

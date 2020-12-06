@@ -19,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
-class ShowOrdersActivity : AppCompatActivity() {
+class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var querry: Query
@@ -37,6 +37,7 @@ class ShowOrdersActivity : AppCompatActivity() {
 
 
         if (intent.getBooleanExtra("AddPizza", false)){ saveOrderToDB() }
+        // TODO("add progress bar")
         // progress bar start
 
         recyclerView = findViewById<RecyclerView>(R.id.ordersReciclerView)
@@ -45,17 +46,16 @@ class ShowOrdersActivity : AppCompatActivity() {
 
         ordersLiveData.observe(this, {
             Log.i("TAG", "onCreate: liveDataObserved")
-            recyclerView.adapter = OrdersAdapter(it)
+            recyclerView.adapter = OrdersAdapter(it, this)
             Log.i("TAG", "onCreate: $it")
         })
+        if (mAuth.currentUser != null) { loadFromFireBaseDB(this) }
 
-        loadFromFireBaseDB(this)
 
         if (!isOnline()) {
             loadFromLocalDB()
         }
         // progress bar end
-
     }
 
     private fun loadFromLocalDB() {
@@ -153,5 +153,9 @@ class ShowOrdersActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (listener != null) { querry.removeEventListener(listener as ValueEventListener) }
+    }
+
+    override fun onOrderClick(position: Int) {
+        Log.i("TAG", "onOrderClick: " + ordersLiveData.value?.get(position).toString())
     }
 }

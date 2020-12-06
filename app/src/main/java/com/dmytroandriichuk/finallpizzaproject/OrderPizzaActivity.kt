@@ -21,7 +21,7 @@ class OrderPizzaActivity : AppCompatActivity() {
     private var size: Int? = null
     private lateinit var viewPager: ViewPager2
     private lateinit var imageSizes: Array<String>
-    private var startTime: Long = System.currentTimeMillis()
+    private var startTime: Long = Date(0).time
     private val toppingsArray = emptyArray<String>()
     private var price = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {

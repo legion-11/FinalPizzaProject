@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
-class ViewPagerAdapter(private val imagesId: IntArray) : RecyclerView.Adapter<PagerVH>() {
+class ViewPagerAdapter(private val imagesId: IntArray) : RecyclerView.Adapter<ViewPagerAdapter.PagerVH>() {
+    class PagerVH(itemView: View) : RecyclerView.ViewHolder(itemView)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
         PagerVH(LayoutInflater.from(parent.context).inflate(R.layout.item_image_page, parent, false))
 
@@ -18,4 +20,3 @@ class ViewPagerAdapter(private val imagesId: IntArray) : RecyclerView.Adapter<Pa
     }
 }
 
-class PagerVH(itemView: View) : RecyclerView.ViewHolder(itemView)
