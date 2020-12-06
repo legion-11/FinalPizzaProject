@@ -72,11 +72,9 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
                     for (childSnapshot in snapshot.children) {
                         val order = childSnapshot.getValue(Order::class.java)
                         order?.let {orders.add(it)}
-
-                        Log.i("loadFromFireBaseDB", "onDataChange: " + orders)
-                        Log.i("loadFromFireBaseDB", "onDataChange: " + order.toString())
+                        // TODo childSnapshot.key tracking
+                        Log.i("loadFromFireBaseDB", "onDataChange: " + childSnapshot.key)
                     }
-                    Log.i("loadFromFireBaseDB", "onDataChange: " + orders)
                     ordersLiveData.value = orders
                 } else {
                     Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()

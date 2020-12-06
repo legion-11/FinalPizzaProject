@@ -138,6 +138,4 @@ class OrderPizzaActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
-
-
 }

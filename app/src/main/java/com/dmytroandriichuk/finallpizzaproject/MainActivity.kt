@@ -54,12 +54,6 @@ class MainActivity : AppCompatActivity() {
             goToRestorePasswordActivity()
         }
 
-        // Write a message to the database
-//        val database = Firebase.database
-//        val myRef = database.getReference("message")
-//
-//        myRef.setValue("Hello, World!")
-
         val registerButton = findViewById<TextView>(R.id.registertTV)
         registerButton.setOnClickListener {
             goToRegisterActivity()

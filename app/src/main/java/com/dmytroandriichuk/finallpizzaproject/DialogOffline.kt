@@ -8,7 +8,7 @@ import androidx.annotation.NonNull
 import androidx.fragment.app.DialogFragment
 
 class DialogOffline(val message: String): DialogFragment() {
-
+    
     @NonNull
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
