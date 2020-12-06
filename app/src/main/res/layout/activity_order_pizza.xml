@@ -9,11 +9,11 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/imagePager"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </androidx.viewpager2.widget.ViewPager2>
 
@@ -107,66 +107,122 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox0"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox0"
-        app:layout_constraintStart_toStartOf="@+id/checkBox0"
-        app:layout_constraintTop_toTopOf="@+id/checkBox0"
-        app:srcCompat="@drawable/cheese" />
+        android:contentDescription="@string/chili"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox1"
+        app:layout_constraintEnd_toEndOf="@+id/checkBox1"
+        app:layout_constraintStart_toStartOf="@+id/checkBox1"
+        app:layout_constraintTop_toTopOf="@+id/checkBox1"
+        app:srcCompat="@drawable/chili" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/olives"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
         app:layout_constraintEnd_toEndOf="@+id/checkBox3"
         app:layout_constraintStart_toStartOf="@+id/checkBox3"
         app:layout_constraintTop_toTopOf="@+id/checkBox3"
-        app:srcCompat="@drawable/cheese" />
+        app:srcCompat="@drawable/olives" />
 
     <CheckBox
-        android:id="@+id/checkBox0"
+        android:id="@+id/checkBox1"
         style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginBottom="112dp"
         android:checked="true"
-        android:text="Cheese"
+        android:text="@string/chili"
+        app:layout_constraintBottom_toTopOf="@+id/confirmPizzaButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/pineapple"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox2"
         app:layout_constraintEnd_toEndOf="@+id/checkBox2"
         app:layout_constraintStart_toStartOf="@+id/checkBox2"
         app:layout_constraintTop_toTopOf="@+id/checkBox2"
-        app:srcCompat="@drawable/cheese" />
+        app:srcCompat="@drawable/pineapple" />
+
+
 
     <CheckBox
         android:id="@+id/checkBox2"
         style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="82dp"
         android:checked="true"
-        android:text="Cheese"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        android:text="@string/pineapple"
+        app:layout_constraintBottom_toTopOf="@+id/priceTV"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <CheckBox
         android:id="@+id/checkBox3"
         style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="81dp"
         android:checked="true"
-        android:text="Cheese"
+        android:text="@string/olives"
+        app:layout_constraintBottom_toTopOf="@+id/priceTV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/shrimp"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox4"
+        app:layout_constraintEnd_toEndOf="@+id/checkBox4"
+        app:layout_constraintStart_toStartOf="@+id/checkBox4"
+        app:layout_constraintTop_toTopOf="@+id/checkBox4"
+        app:srcCompat="@drawable/shrimp" />
+
+
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="81dp"
+        android:checked="true"
+        android:text="@string/shrimp"
+        app:layout_constraintBottom_toTopOf="@+id/priceTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/priceTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
         android:text="0.00$"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/confirmPizzaButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -180,5 +236,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-        <!--  todo add all checkboxes  -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="358dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="170dp"
+        android:text="Choose Extra Toppings:"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/priceTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+
+    <!--  todo add all checkboxes  -->
 </androidx.constraintlayout.widget.ConstraintLayout>
