@@ -6,25 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/pizzaplustext" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailRegistrationLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:errorEnabled="true"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegistrationLayout"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.28"
         tools:layout_editor_absoluteX="193dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailRegistrationET"
-            android:background="@drawable/edit_round"
-
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_round"
             android:hint="email" />
     </com.google.android.material.textfield.TextInputLayout>
 
