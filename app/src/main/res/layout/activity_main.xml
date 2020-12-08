@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/pizzamainlogo" />
+        app:srcCompat="@drawable/pizzaplustext" />
 
     <ProgressBar
         android:id="@+id/logInProgressBar"
@@ -95,11 +95,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:theme="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:theme="@style/TextInputLayoutStyle"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/passwordLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,13 +112,12 @@
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_round"
             android:drawableStart="@drawable/user"
             android:drawablePadding="10dp"
-            android:background="@drawable/edit_round"
             android:hint="Enter Email" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
