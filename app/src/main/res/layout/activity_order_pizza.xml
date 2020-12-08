@@ -44,6 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
 
         <RadioButton
             android:id="@+id/radioButtonSmall"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Left"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -79,7 +80,7 @@
 
         <RadioButton
             android:id="@+id/radioButtonExtra"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -104,7 +105,7 @@
 
         <CheckBox
             android:id="@+id/broccoliCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -131,7 +132,7 @@
 
         <CheckBox
             android:id="@+id/cheeseCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -158,7 +159,7 @@
 
         <CheckBox
             android:id="@+id/mushroomCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -185,7 +186,7 @@
 
         <CheckBox
             android:id="@+id/olivesCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -212,10 +213,9 @@
 
         <CheckBox
             android:id="@+id/chilliCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:checked="false"
             android:onClick="addRemoveTopping"
             android:text="Chilli"
             android:textStyle="bold" />
@@ -239,7 +239,7 @@
 
         <CheckBox
             android:id="@+id/tomatoCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -266,7 +266,7 @@
 
         <CheckBox
             android:id="@+id/salamiCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -293,13 +293,13 @@
 
         <CheckBox
             android:id="@+id/pepperCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
+            android:onClick="addRemoveTopping"
             android:text="Pepper"
-            android:textStyle="bold"
-            android:onClick="addRemoveTopping" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -321,7 +321,7 @@
 
         <CheckBox
             android:id="@+id/parsleyCB"
-            style="@style/Widget.MaterialComponents.CompoundButton.RadioButton.Center"
+            style="@style/Widget.MaterialComponents.CompoundButton.CheckBox.Center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:checked="false"
@@ -378,8 +378,10 @@
         android:id="@+id/confirmPizzaButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Continue"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

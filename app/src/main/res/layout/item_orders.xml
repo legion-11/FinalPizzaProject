@@ -46,18 +46,19 @@
             android:lines="3"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="Customer Name" />
+            android:text="Customer Name"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/orderItemPizzaType"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
             android:gravity="fill"
             android:lines="2"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="PizzaType" />
+            android:text="PizzaType"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -84,16 +85,16 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/orderItemToppings"
+                    android:id="@+id/orderItemAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="4dp"
                     android:layout_weight="2.5"
                     android:gravity="fill"
                     android:lines="3"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="Toppings" />
+                    android:text="Address"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/orderItemPrice"
@@ -101,21 +102,23 @@
                     android:layout_height="match_parent"
                     android:layout_weight="10"
                     android:gravity="center"
-                    android:text="price" />
+                    android:text="price"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/orderItemAddress"
+            android:id="@+id/orderItemTopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
             android:lines="3"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="address" />
+            android:text="topping"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -125,6 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Date"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
