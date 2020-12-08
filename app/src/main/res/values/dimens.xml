@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="sizes">
-        <item>1.05</item>
-        <item>1.2</item>
-        <item>1.6</item>
-        <item>2.0</item>
-    </string-array>
 </resources>
 
 

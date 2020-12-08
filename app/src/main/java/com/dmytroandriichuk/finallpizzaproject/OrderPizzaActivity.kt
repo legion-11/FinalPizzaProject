@@ -1,14 +1,14 @@
 package com.dmytroandriichuk.finallpizzaproject
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.RadioGroup
-import android.widget.SeekBar
-import android.widget.Toast
+import android.view.View
+import android.view.animation.DecelerateInterpolator
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -21,10 +21,11 @@ import kotlin.system.exitProcess
 class OrderPizzaActivity : AppCompatActivity() {
     private var size: Int? = null
     private lateinit var viewPager: ViewPager2
-    private lateinit var imageSizes: Array<String>
     private var startTime: Long = Date(0).time
     private val toppingsArray = emptyArray<String>()
     private var price = 0.0
+    private var animation: ObjectAnimator? = null
+    private lateinit var seekBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +41,13 @@ class OrderPizzaActivity : AppCompatActivity() {
             imagesId[i] = typedArray.getResourceId(i, 0)
         }
         typedArray.recycle()
+
         viewPager.adapter = ViewPagerAdapter(imagesId)
-
-
-
-        val names = resources.getStringArray(R.array.pizzaNames)
+        val pizzaNames = resources.getStringArray(R.array.pizzaNames)
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                title = names[position]
+                title = pizzaNames[position]
             }
         })
 
@@ -57,36 +56,83 @@ class OrderPizzaActivity : AppCompatActivity() {
             viewPager.setCurrentItem(tab.position, true)
         }.attach()
 
-        imageSizes = resources.getStringArray(R.array.sizes)
-        val pizzaSizesRadioGroup = findViewById<RadioGroup>(R.id.pizzaSizesRadioGroup)
-        rescaleImage(pizzaSizesRadioGroup.checkedRadioButtonId)
-        pizzaSizesRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
-            rescaleImage(i)
-        }
 
-
-
-        // Needs fixing or removing
-        // Maybe needs switching case implementation dunno
-        // Needs further research
-
-        val seekBar: SeekBar = findViewById(R.id.seekBar)
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                rescaleImage(progress)
+        seekBar = findViewById(R.id.seekBar)
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                val rescale = 1 + progress.toFloat()/seekBar.max
+                viewPager.scaleX = rescale
+                viewPager.scaleY = rescale
             }
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {    }
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {     }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                animation?.cancel()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                size = when(seekBar.progress) {
+                    in 0..50 -> 0
+                    in 51..150 -> 1
+                    in 151..250 -> 2
+                    else -> 3
+                }
+                setRadioButton(size!!)
+
+                animation = ObjectAnimator.ofInt(seekBar, "progress", getFinalProgressFromCurrent(seekBar.progress))
+                animation?.duration = 500 // 0.5 second
+                animation?.interpolator = DecelerateInterpolator()
+                animation?.start()
+            }
         })
 
-
+        val pizzaSizesRadioGroup = findViewById<RadioGroup>(R.id.pizzaSizesRadioGroup)
+        setSizeFromRadiobutton(pizzaSizesRadioGroup.checkedRadioButtonId)
+        pizzaSizesRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
+            setSizeFromRadiobutton(i)
+        }
 
         val confirmButton = findViewById<Button>(R.id.confirmPizzaButton)
-        confirmButton.setOnClickListener {
-            saveOrderAndOpenMapActivity()
-        }
+        confirmButton.setOnClickListener { saveOrderAndOpenMapActivity() }
         // TODO: 05.12.2020 price calculation
 
+    }
+
+    private fun getFinalProgressFromCurrent(progress: Int): Int {
+        return when (progress) {
+            in 0..50 -> 0
+            in 51..150 -> 100
+            in 151..250 -> 200
+            else -> 300
+        }
+    }
+
+    private fun setRadioButton(id: Int){
+        when(id){
+            0 -> findViewById<RadioButton>(R.id.radioButtonSmall ).isChecked = true
+            1 -> findViewById<RadioButton>(R.id.radioButtonMedium).isChecked = true
+            2 -> findViewById<RadioButton>(R.id.radioButtonLarge ).isChecked = true
+            else -> findViewById<RadioButton>(R.id.radioButtonExtra ).isChecked = true
+        }
+    }
+
+    private fun setSizeFromRadiobutton(radioButtonId: Int) {
+        animation?.cancel()
+        val scaler = when (radioButtonId) {
+            R.id.radioButtonSmall -> 0
+            R.id.radioButtonMedium -> 100
+            R.id.radioButtonLarge -> 200
+            else-> 300
+        }
+        size = when (radioButtonId) {
+            R.id.radioButtonSmall -> 0
+            R.id.radioButtonMedium -> 1
+            R.id.radioButtonLarge -> 2
+            else -> 3
+        }
+        animation = ObjectAnimator.ofInt(seekBar, "progress", scaler)
+        animation?.duration = 500 // 0.5 second
+        animation?.interpolator = DecelerateInterpolator()
+        animation?.start()
     }
 
     private fun saveOrderAndOpenMapActivity() {
@@ -105,24 +151,12 @@ class OrderPizzaActivity : AppCompatActivity() {
             exitProcess(0);
         } else {
             Toast.makeText(
-                this,
-                "Press one more time to close app.\nYou won't be Logged Out of your account",
-                Toast.LENGTH_LONG
+                    this,
+                    "Press one more time to close app.\nYou won't be Logged Out of your account",
+                    Toast.LENGTH_LONG
             ).show()
             startTime = System.currentTimeMillis()
         }
-    }
-
-    private fun rescaleImage(radioButtonId: Int) {
-        val scalerIndex = when (radioButtonId) {
-            R.id.radioButtonSmall -> 0
-            R.id.radioButtonMedium -> 1
-            R.id.radioButtonLarge -> 2
-            else-> 3
-        }
-        size = scalerIndex
-        viewPager.scaleX = imageSizes[scalerIndex].toFloat()
-        viewPager.scaleY = imageSizes[scalerIndex].toFloat()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -159,6 +193,14 @@ class OrderPizzaActivity : AppCompatActivity() {
             // If we got here, the user's action was not recognized.
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun addRemoveTopping(v: View) {
+        if((v as CheckBox).isChecked) {
+            price += 0.5
+        } else {
+            price -= 0.5
         }
     }
 }
