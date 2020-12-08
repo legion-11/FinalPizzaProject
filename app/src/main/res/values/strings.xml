@@ -12,5 +12,9 @@
     <string name="cheese">Cheese</string>
     <string name="pepperoni">Pepperoni</string>
 
+    <string name="card_hint">XXXX XXXX XXXX XXXX</string>
+    <string name="date_hint">MM/YYYY</string>
+    <string name="cardbackground">cardBackground</string>
+    <string name="type_of_card">type of card</string>
 
 </resources>
