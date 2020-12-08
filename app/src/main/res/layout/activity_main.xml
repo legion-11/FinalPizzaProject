@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0f3b52"
     tools:context=".MainActivity">
 
     <Button
@@ -86,9 +85,9 @@
             android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_round"
             android:drawableStart="@drawable/pass"
             android:drawablePadding="10dp"
+            android:background="@drawable/edit_round"
             android:hint="Enter Password" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,6 +95,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -112,9 +112,9 @@
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_round"
             android:drawableStart="@drawable/user"
             android:drawablePadding="10dp"
+            android:background="@drawable/edit_round"
             android:hint="Enter Email" />
 
 

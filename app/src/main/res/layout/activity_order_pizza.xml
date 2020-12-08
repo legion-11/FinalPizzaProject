@@ -10,7 +10,6 @@
         android:id="@+id/imagePager"
         android:layout_width="0dp"
         android:layout_height="120dp"
-        android:layout_marginTop="-3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -341,7 +340,6 @@
         android:layout_marginEnd="32dp"
         android:layout_weight="3"
         android:max="300"
-        android:minHeight="16dp"
         android:progress="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

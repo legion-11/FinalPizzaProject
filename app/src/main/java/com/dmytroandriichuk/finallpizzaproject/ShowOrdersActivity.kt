@@ -6,7 +6,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +41,10 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
     private lateinit var database: FirebaseDatabase
     private lateinit var mAuth: FirebaseAuth
     private var ordersLiveData: MutableLiveData<List<Order>> = MutableLiveData()
+
+    private lateinit var itsTimeTV: TextView
+    private lateinit var itsTimeImage: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_orders)
@@ -51,7 +58,8 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         }
         // TODO("add progress bar")
         // progress bar start
-
+        itsTimeTV = findViewById(R.id.showOrdersItsTimeTV)
+        itsTimeImage = findViewById(R.id.showOrdersNoOrdersImage)
         recyclerView = findViewById(R.id.ordersReciclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -78,20 +86,23 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
 
     private fun loadFromFireBaseDB(context: Context) {
         querry = database.getReference("Order").orderByChild("userId").equalTo(mAuth.currentUser?.uid)
-
         listener = object: ValueEventListener  {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val orders = mutableListOf<Order>()
                 if (snapshot.exists()) {
-                    val orders = mutableListOf<Order>()
+                    itsTimeImage.visibility = View.GONE
+                    itsTimeTV.visibility = View.GONE
+
                     for (childSnapshot in snapshot.children) {
                         val order = childSnapshot.getValue(Order::class.java)
                         order?.let {orders.add(it)}
-                        // TODo childSnapshot.key tracking
-                        Log.i("loadFromFireBaseDB", "onDataChange: " + childSnapshot.key)
                     }
+                    orders.reverse()
                     ordersLiveData.value = orders
                 } else {
-                    Toast.makeText(context, "Something wrong happened", Toast.LENGTH_LONG).show()
+                    ordersLiveData.value = orders
+                    itsTimeImage.visibility = View.VISIBLE
+                    itsTimeTV.visibility = View.VISIBLE
                 }
             }
 
@@ -100,7 +111,6 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
             }
         }
         querry.addValueEventListener(listener as ValueEventListener)
-       // TODO("save in db somehow")
     }
 
     private fun saveOrderToDB() {
@@ -170,7 +180,6 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
     }
 
     override fun onOrderClick(position: Int) {
-        Log.i("TAG", "onOrderClick: " + ordersLiveData.value?.get(position).toString())
         val clicked = ordersLiveData.value?.get(position)
         if (clicked?.adminId != null) {
             val dialog = Dialog(this)
@@ -199,7 +208,6 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    adminLocationLiveData.value = null
                     Log.i("TAG", "onCancelled: cancel")
                 }
             }
@@ -212,7 +220,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
                         locationMarker = googleMap.addMarker(MarkerOptions().apply {
                             position(it)
                         })
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 12f))
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))
                     } else {
                         locationMarker?.position = it
                     }
@@ -220,8 +228,8 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
                 refference.addValueEventListener(listener)
             }
             dialog.setOnDismissListener {
-                Log.i("TAG", "dismis: dismis")
                 refference.removeEventListener(listener)
+                adminLocationLiveData.value = null
             }
             dialog.show()
         }

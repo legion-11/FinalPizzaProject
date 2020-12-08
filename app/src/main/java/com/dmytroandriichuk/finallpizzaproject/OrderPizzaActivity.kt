@@ -63,7 +63,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         seekBar = findViewById(R.id.seekBar)
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                val rescale = 1 + progress.toFloat()/seekBar.max
+                val rescale = 1.1f + progress.toFloat()/seekBar.max
                 viewPager.scaleX = rescale
                 viewPager.scaleY = rescale
             }
