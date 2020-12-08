@@ -19,7 +19,7 @@
         <item name="android:background">@drawable/radio_button_background_center</item>
         <item name="android:fontFamily">casual</item>
         <item name="android:button">@null</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
     </style>
 
     <style name="Widget.MaterialComponents.CompoundButton.RadioButton.Left">
