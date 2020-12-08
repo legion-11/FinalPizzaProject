@@ -1,17 +1,26 @@
 package com.dmytroandriichuk.finallpizzaproject
 
+import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dmytroandriichuk.finallpizzaproject.dataClasses.AdminLocation
 import com.dmytroandriichuk.finallpizzaproject.dataClasses.Order
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -45,7 +54,12 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
 
         recyclerView = findViewById(R.id.ordersReciclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         ordersLiveData.observe(this, {
             recyclerView.adapter = OrdersAdapter(it, this)
@@ -104,8 +118,10 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
             val date = Date().time
 
 
-            val order = Order(currentUser.uid, name, address, flatNumber,
-                    lat, lng, phoneNumber, pizzaType, size, toppings, price, date)
+            val order = Order(
+                currentUser.uid, name, address, flatNumber,
+                lat, lng, phoneNumber, pizzaType, size, toppings, price, date
+            )
 
             database.getReference("Order").push().setValue(order).addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -156,5 +172,61 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
     override fun onOrderClick(position: Int) {
         Log.i("TAG", "onOrderClick: " + ordersLiveData.value?.get(position).toString())
         val clicked = ordersLiveData.value?.get(position)
+        if (clicked?.adminId != null) {
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.dialog_map)
+
+            MapsInitializer.initialize(this)
+
+            val mMapView = dialog.findViewById<MapView>(R.id.mapView)
+            MapsInitializer.initialize(this)
+            mMapView.onCreate(dialog.onSaveInstanceState())
+            mMapView.onResume() // needed to get the map to display immediately
+
+
+            val listener =object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val loc = snapshot.getValue(AdminLocation::class.java)
+                        if (loc != null) {
+                            adminLocationLiveData.value = loc.lng?.let { lng-> loc.lat?.let { lat-> LatLng(lat, lng) } }
+                        }
+                        Log.i("TAG", "onDataChange: $loc")
+                    } else {
+                        Log.i("TAG", "onDataChange: no admin")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    adminLocationLiveData.value = null
+                    Log.i("TAG", "onCancelled: cancel")
+                }
+            }
+
+            val refference = database.getReference("Admins").child(clicked.adminId!!)
+            mMapView.getMapAsync { googleMap ->
+                var locationMarker: Marker? = null
+                adminLocationLiveData.observe(this, {
+                    if (locationMarker == null){
+                        locationMarker = googleMap.addMarker(MarkerOptions().apply {
+                            position(it)
+                        })
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 12f))
+                    } else {
+                        locationMarker?.position = it
+                    }
+                })
+                refference.addValueEventListener(listener)
+            }
+            dialog.setOnDismissListener {
+                Log.i("TAG", "dismis: dismis")
+                refference.removeEventListener(listener)
+            }
+            dialog.show()
+        }
+    }
+    companion object {
+        val adminLocationLiveData: MutableLiveData<LatLng> = MutableLiveData()
     }
 }
