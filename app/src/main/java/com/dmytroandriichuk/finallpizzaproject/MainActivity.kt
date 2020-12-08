@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         passwordET = findViewById(R.id.passwordET)
         progressBar = findViewById(R.id.logInProgressBar)
 
+        val sharedPreferences = getSharedPreferences("user default", Context.MODE_PRIVATE)
+        emailET.setText(sharedPreferences.getString("Email", ""))
+
         emailLayout = findViewById(R.id.emailLayout)
         passwordLayout = findViewById(R.id.passwordLayout)
         val signInButton = findViewById<Button>(R.id.SignInButton)

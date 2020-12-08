@@ -37,7 +37,7 @@
 
             android:layout_height="wrap_content"
             android:background="@drawable/edit_round"
-            android:hint="email" />
+            android:hint="@string/enter_email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +57,7 @@
             android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password" />
+            android:hint="@string/enter_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -76,7 +76,7 @@
             android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name" />
+            android:hint="@string/full_name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -87,7 +87,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:textColor="#FFFFFF"
-        android:text="Confirm"
+        android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

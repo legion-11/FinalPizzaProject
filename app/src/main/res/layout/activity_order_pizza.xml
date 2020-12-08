@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
+            android:gravity="center"
             android:text="@string/medium_size_descr" />
 
         <RadioButton
@@ -75,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/large_size_descr" />
 
 
@@ -165,6 +167,7 @@
             android:checked="false"
             android:onClick="addRemoveTopping"
             android:text="Mushrooms"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.Window
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,6 +31,8 @@ import java.util.*
 
 class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListener {
 
+    private lateinit var retryButton: Button
+    private lateinit var progerssBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var querry: Query
 
@@ -54,10 +54,12 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
 
         if (intent.getBooleanExtra("Payment Success", false)){
             saveOrderToDB()
-            intent.removeExtra("Payment Success")
         }
-        // TODO("add progress bar")
-        // progress bar start
+        retryButton = findViewById<Button>(R.id.tryAgainButton)
+        retryButton.setOnClickListener{saveOrderToDB()}
+
+        progerssBar = findViewById<ProgressBar>(R.id.showOrdersProgressBar)
+        progerssBar.visibility = View.VISIBLE
         itsTimeTV = findViewById(R.id.showOrdersItsTimeTV)
         itsTimeImage = findViewById(R.id.showOrdersNoOrdersImage)
         recyclerView = findViewById(R.id.ordersReciclerView)
@@ -77,7 +79,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         if (!isOnline()) {
             loadFromLocalDB()
         }
-        // progress bar end
+        progerssBar.visibility = View.GONE
     }
 
     private fun loadFromLocalDB() {
@@ -114,6 +116,8 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
     }
 
     private fun saveOrderToDB() {
+        retryButton.visibility = View.GONE
+
         mAuth.currentUser?.let { currentUser ->
             val name = intent.getStringExtra("full name")
             val address = intent.getStringExtra("address")
@@ -132,16 +136,18 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
                 currentUser.uid, name, address, flatNumber,
                 lat, lng, phoneNumber, pizzaType, size, toppings, price, date
             )
-
-            database.getReference("Order").push().setValue(order).addOnCompleteListener {
-                if (it.isSuccessful) {
+            progerssBar.visibility = View.VISIBLE
+            database.getReference("Order").push().setValue(order)
+                .addOnSuccessListener {
                     saveToLocalDB()
                     Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
-                } else {
-                    // TODO: 05.12.2020 button to try again appearing
-                    Toast.makeText(this, "Failed to send order. Try again", Toast.LENGTH_LONG).show()
+                    intent.removeExtra("Payment Success")
                 }
+                .addOnFailureListener {
+                Toast.makeText(this, "Failed to send order. Try again", Toast.LENGTH_LONG).show()
+                retryButton.visibility = View.VISIBLE
             }
+            progerssBar.visibility = View.GONE
         }
     }
 

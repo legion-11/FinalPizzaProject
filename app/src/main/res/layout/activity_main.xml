@@ -10,7 +10,7 @@
         android:id="@+id/SignInButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_in"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Forgоt Password"
+        android:text="@string/forgot_password"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
             android:drawableStart="@drawable/pass"
             android:drawablePadding="10dp"
             android:background="@drawable/edit_round"
-            android:hint="Enter Password" />
+            android:hint="@string/enter_password" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +115,7 @@
             android:background="@drawable/edit_round"
             android:drawableStart="@drawable/user"
             android:drawablePadding="10dp"
-            android:hint="Enter Email" />
+            android:hint="@string/enter_email" />
 
 
     </com.google.android.material.textfield.TextInputLayout>

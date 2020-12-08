@@ -1,5 +1,6 @@
 package com.dmytroandriichuk.finallpizzaproject
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -52,9 +53,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             ).build(this)
             startActivityForResult(autocompleteIntent, 100)
         }
+
+        val sharedPreferences = getSharedPreferences("user default", Context.MODE_PRIVATE)
+
         val nameET = findViewById<TextInputEditText>(R.id.mapNameET)
+        nameET.setText(sharedPreferences.getString("Persons name", ""))
+
         val flatNumberET = findViewById<TextInputEditText>(R.id.mapFlatNumberET)
+
         val phoneET = findViewById<TextInputEditText>(R.id.mapPhoneNumberET)
+        phoneET.setText(sharedPreferences.getString("Phone number", ""))
 
         val nameLayout = findViewById<TextInputLayout>(R.id.mapNameLayout)
         val addressLayout = findViewById<TextInputLayout>(R.id.mapAddressLayout)
@@ -103,7 +111,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             startActivity(newIntent)
         }
-        // TODO: 05.12.2020 add autocomplete name
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

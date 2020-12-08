@@ -87,7 +87,6 @@ class PaymentActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             if (date.text.length !=7){
-
                 Toast.makeText(applicationContext, "input expiry date", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
@@ -97,6 +96,10 @@ class PaymentActivity : AppCompatActivity() {
                 putExtra("Payment Success", true)
             }
             startActivity(newIntent)
+        }
+
+        findViewById<Button>(R.id.paymentBackButton).setOnClickListener {
+            finish()
         }
     }
 }

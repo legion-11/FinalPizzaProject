@@ -97,13 +97,11 @@ class OrderPizzaActivity : AppCompatActivity() {
 
         val confirmButton = findViewById<Button>(R.id.confirmPizzaButton)
         confirmButton.setOnClickListener { saveOrderAndOpenMapActivity() }
-        // TODO: 05.12.2020 price calculation
-
     }
 
     private fun recalculatePrice() {
         price = pizzaPrice + pizzaPrice * (size.toDouble())/3 + 0.5 * toppingsArray.size
-        findViewById<TextView>(R.id.priceTV).text = "%.2f".format(price)
+        findViewById<TextView>(R.id.priceTV).text = "%.2f$".format(price)
     }
 
     private fun getFinalProgressFromCurrent(progress: Int): Int {
