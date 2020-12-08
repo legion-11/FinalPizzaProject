@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/pizzaImage"
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         app:srcCompat="@drawable/cheese_x4" />
 

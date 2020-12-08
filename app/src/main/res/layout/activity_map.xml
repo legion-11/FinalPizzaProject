@@ -12,6 +12,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/mapBackButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -23,11 +25,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/mapAddressLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_person"
-        tools:layout_editor_absoluteX="194dp">
+        app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mapNameET"
@@ -41,10 +46,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapNameLayout"
-        app:startIconDrawable="@drawable/ic_location"
-        tools:layout_editor_absoluteX="199dp">
+        app:startIconDrawable="@drawable/ic_location">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mapPostalAddressET"
@@ -60,6 +68,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/mapPhoneNumberLayout"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="1"
@@ -79,6 +89,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -90,17 +101,18 @@
             android:id="@+id/mapPhoneNumberET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="phoneNumberDevice"
             android:hint="Phone Number"
-            android:inputType="phone"
-            android:autofillHints="phoneNumberDevice"/>
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/mapBackButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="16dp"
         android:text="Back"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mapConfirmButton"
         app:layout_constraintHorizontal_bias="0.5"
@@ -110,8 +122,10 @@
         android:id="@+id/mapConfirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Confirm"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

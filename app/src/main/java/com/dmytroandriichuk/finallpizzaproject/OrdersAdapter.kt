@@ -19,7 +19,7 @@ class OrdersAdapter(private val dataSet: List<Order?>,
         val nametv: TextView = view.findViewById(R.id.orderItemCustomerName)
         val addresstv: TextView = view.findViewById(R.id.orderItemAddress)
         val pizzatv: TextView = view.findViewById(R.id.orderItemPizzaType)
-        val toppingstv: TextView = view.findViewById(R.id.orderItemToppings)
+        val toppingstv: TextView = view.findViewById(R.id.orderItemTopping)
         val pricetv: TextView = view.findViewById(R.id.orderItemPrice)
         val orderStatusImage: ImageView = view.findViewById(R.id.orderItemStatusImage)
         val datetv: TextView = view.findViewById(R.id.orderItemDate)
