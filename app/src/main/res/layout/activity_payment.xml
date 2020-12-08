@@ -10,7 +10,7 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:contentDescription="@string/cardbackground"
+        android:contentDescription="@string/card_background"
         app:layout_constraintBottom_toTopOf="@+id/paymentConfirmButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/card"
