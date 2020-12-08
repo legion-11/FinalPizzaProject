@@ -11,6 +11,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegistrationLayout"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,6 +21,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailRegistrationET"
+            android:background="@drawable/edit_round"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="email" />
@@ -27,6 +31,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordRegistrationLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -36,6 +42,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordlRegistrationET"
+            android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password" />
@@ -44,6 +51,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameRegistrationLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/confirmRegistrationButton"
@@ -52,6 +61,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameRegistrationET"
+            android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name" />
@@ -59,8 +69,11 @@
 
     <Button
         android:id="@+id/confirmRegistrationButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:textColor="#FFFFFF"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
