@@ -36,21 +36,21 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         database = Firebase.database
 
 
-        if (intent.getBooleanExtra("Payment Success", false)){ saveOrderToDB() }
+        if (intent.getBooleanExtra("Payment Success", false)){
+            saveOrderToDB()
+            intent.removeExtra("Payment Success")
+        }
         // TODO("add progress bar")
         // progress bar start
 
-        recyclerView = findViewById<RecyclerView>(R.id.ordersReciclerView)
+        recyclerView = findViewById(R.id.ordersReciclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
 
         ordersLiveData.observe(this, {
-            Log.i("TAG", "onCreate: liveDataObserved")
             recyclerView.adapter = OrdersAdapter(it, this)
-            Log.i("TAG", "onCreate: $it")
         })
         if (mAuth.currentUser != null) { loadFromFireBaseDB(this) }
-
 
         if (!isOnline()) {
             loadFromLocalDB()
@@ -155,5 +155,6 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
 
     override fun onOrderClick(position: Int) {
         Log.i("TAG", "onOrderClick: " + ordersLiveData.value?.get(position).toString())
+        val clicked = ordersLiveData.value?.get(position)
     }
 }

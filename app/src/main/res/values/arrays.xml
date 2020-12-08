@@ -4,7 +4,7 @@
         <item>@drawable/cheese_x4_v2</item>
         <item>@drawable/dorblue_cheese</item>
         <item>@drawable/emily</item>
-        <item>@drawable/paperoni</item>
+        <item>@drawable/peperoni_pizza</item>
     </integer-array>
 
     <string-array name="pizzaNames">
@@ -12,5 +12,12 @@
         <item>Dorblue cheese</item>
         <item>Emily</item>
         <item>Peperon</item>
+    </string-array>
+
+    <string-array name="pizzaPrices">
+        <item>15</item>
+        <item>17</item>
+        <item>18</item>
+        <item>20</item>
     </string-array>
 </resources>

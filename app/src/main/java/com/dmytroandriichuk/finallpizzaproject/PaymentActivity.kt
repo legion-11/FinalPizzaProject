@@ -13,6 +13,7 @@ class PaymentActivity : AppCompatActivity() {
         findViewById<Button>(R.id.paymentConfirmButton).setOnClickListener {
             val newIntent = Intent(this@PaymentActivity, ShowOrdersActivity::class.java).apply {
                 putExtras(intent)
+                putExtra("Payment Success", true)
             }
             startActivity(newIntent)
         }

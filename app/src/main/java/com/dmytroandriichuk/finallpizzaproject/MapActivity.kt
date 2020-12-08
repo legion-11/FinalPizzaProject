@@ -92,7 +92,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             // TODO: 05.12.2020 change flag delete !!!!!!!!!!!!!!!!!!!!
             flag = true
             if (!flag) return@setOnClickListener
-            // TODO: 05.12.2020 provide data,  check input isEmpty!!!!
             val newIntent = Intent(this@MapActivity, PaymentActivity::class.java).apply {
                 putExtras(intent)
                 putExtra("full name", nameET.text.toString())

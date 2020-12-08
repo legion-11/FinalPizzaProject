@@ -19,14 +19,14 @@ import kotlin.system.exitProcess
 
 
 class OrderPizzaActivity : AppCompatActivity() {
-    private var size: Int? = null
+    private var size: Int = 0
     private lateinit var viewPager: ViewPager2
     private var startTime: Long = Date(0).time
-    private val toppingsArray = emptyArray<String>()
+        private val toppingsArray = mutableListOf<String>()
     private var price = 0.0
     private var animation: ObjectAnimator? = null
     private lateinit var seekBar: SeekBar
-
+    private var pizzaPrice: Double = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_pizza)
@@ -41,6 +41,7 @@ class OrderPizzaActivity : AppCompatActivity() {
             imagesId[i] = typedArray.getResourceId(i, 0)
         }
         typedArray.recycle()
+        val pizzaPrices = resources.getStringArray(R.array.pizzaPrices)
 
         viewPager.adapter = ViewPagerAdapter(imagesId)
         val pizzaNames = resources.getStringArray(R.array.pizzaNames)
@@ -48,6 +49,8 @@ class OrderPizzaActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 title = pizzaNames[position]
+                pizzaPrice = pizzaPrices[position].toDouble()
+                recalculatePrice()
             }
         })
 
@@ -76,7 +79,8 @@ class OrderPizzaActivity : AppCompatActivity() {
                     in 151..250 -> 2
                     else -> 3
                 }
-                setRadioButton(size!!)
+                setRadioButton(size)
+                recalculatePrice()
 
                 animation = ObjectAnimator.ofInt(seekBar, "progress", getFinalProgressFromCurrent(seekBar.progress))
                 animation?.duration = 500 // 0.5 second
@@ -95,6 +99,11 @@ class OrderPizzaActivity : AppCompatActivity() {
         confirmButton.setOnClickListener { saveOrderAndOpenMapActivity() }
         // TODO: 05.12.2020 price calculation
 
+    }
+
+    private fun recalculatePrice() {
+        price = pizzaPrice + pizzaPrice * (size.toDouble())/3 + 0.5 * toppingsArray.size
+        findViewById<TextView>(R.id.priceTV).text = "%.2f".format(price)
     }
 
     private fun getFinalProgressFromCurrent(progress: Int): Int {
@@ -129,6 +138,7 @@ class OrderPizzaActivity : AppCompatActivity() {
             R.id.radioButtonLarge -> 2
             else -> 3
         }
+        recalculatePrice()
         animation = ObjectAnimator.ofInt(seekBar, "progress", scaler)
         animation?.duration = 500 // 0.5 second
         animation?.interpolator = DecelerateInterpolator()
@@ -139,7 +149,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         val newIntent = Intent(this@OrderPizzaActivity, MapActivity::class.java).apply {
             putExtra("pizza type", title)
             putExtra("size", size)
-            putExtra("toppings", toppingsArray)
+            putExtra("toppings", toppingsArray.toTypedArray())
             putExtra("price", price)
         }
         startActivity(newIntent)
@@ -196,11 +206,13 @@ class OrderPizzaActivity : AppCompatActivity() {
         }
     }
 
-    private fun addRemoveTopping(v: View) {
-        if((v as CheckBox).isChecked) {
-            price += 0.5
+
+    fun addRemoveTopping(view: View) {
+        if((view as CheckBox).isChecked) {
+            toppingsArray.add(view.text.toString())
         } else {
-            price -= 0.5
+            toppingsArray.remove(view.text.toString())
         }
+        recalculatePrice()
     }
 }

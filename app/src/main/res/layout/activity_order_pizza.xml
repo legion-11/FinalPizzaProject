@@ -6,19 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".OrderPizzaActivity">
 
-    <Button
-        android:id="@+id/confirmPizzaButton"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/imagePager"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Continue"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="-3dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabDots"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="#00FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/imagePager"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <RadioGroup
         android:id="@+id/pizzaSizesRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -310,7 +336,9 @@
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:layout_weight="3"
         android:max="300"
         android:minHeight="4dp"
@@ -347,40 +375,13 @@
         app:layout_constraintStart_toStartOf="@+id/seekBar"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/imagePager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/imagePager"
+    <Button
+        android:id="@+id/confirmPizzaButton"
         android:layout_width="0dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="-3dp"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-    </androidx.viewpager2.widget.ViewPager2>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabDots"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_alignParentBottom="true"
-        android:background="#00FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/imagePager"
-        app:tabBackground="@drawable/tab_selector"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <!--  todo add all checkboxes  -->
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
