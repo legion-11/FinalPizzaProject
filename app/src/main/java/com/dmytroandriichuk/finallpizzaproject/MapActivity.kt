@@ -41,7 +41,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         addressET = findViewById(R.id.mapPostalAddressET)
         addressET.setOnClickListener {
-            val fieldList = Arrays.asList(
+            val fieldList = listOf(
                 Place.Field.ADDRESS,
                 Place.Field.LAT_LNG,
                 Place.Field.NAME
@@ -56,12 +56,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val sharedPreferences = getSharedPreferences("user default", Context.MODE_PRIVATE)
 
-        val nameET = findViewById<TextInputEditText>(R.id.mapNameET)
+        nameET = findViewById(R.id.mapNameET)
         nameET.setText(sharedPreferences.getString("Persons name", ""))
 
-        val flatNumberET = findViewById<TextInputEditText>(R.id.mapFlatNumberET)
+        flatNumberET = findViewById(R.id.mapFlatNumberET)
 
-        val phoneET = findViewById<TextInputEditText>(R.id.mapPhoneNumberET)
+        phoneET = findViewById(R.id.mapPhoneNumberET)
         phoneET.setText(sharedPreferences.getString("Phone number", ""))
 
         val nameLayout = findViewById<TextInputLayout>(R.id.mapNameLayout)
@@ -97,8 +97,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 phoneLayout.error = ""
             }
 
-            // TODO: 05.12.2020 change flag delete !!!!!!!!!!!!!!!!!!!!
-            flag = true
             if (!flag) return@setOnClickListener
             val newIntent = Intent(this@MapActivity, PaymentActivity::class.java).apply {
                 putExtras(intent)

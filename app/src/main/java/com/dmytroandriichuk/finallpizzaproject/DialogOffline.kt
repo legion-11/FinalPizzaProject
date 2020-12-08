@@ -2,12 +2,11 @@ package com.dmytroandriichuk.finallpizzaproject
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.fragment.app.DialogFragment
 
-class DialogOffline(val message: String): DialogFragment() {
+class DialogOffline(private val message: String): DialogFragment() {
     
     @NonNull
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -16,16 +15,16 @@ class DialogOffline(val message: String): DialogFragment() {
             builder.setTitle("Failed to sign in!")
                     .setMessage(message)
                     .setPositiveButton("Ok") {
-                        dialog, id ->  dialog.cancel()
+                        dialog, _ ->  dialog.cancel()
                     }
 
             if (message == "Account is not verified"){
-                builder.setNegativeButton("Send Verification Letter") { dialog, id ->
+                builder.setNegativeButton("Send Verification Letter") { dialog, _ ->
                     (activity as MainActivity).sendVerificationLetter()
                     dialog.cancel()
                 }
             } else if (message == "Connection error") {
-                builder.setNegativeButton("Go offline") { dialog, id ->
+                builder.setNegativeButton("Go offline") { dialog, _ ->
                     (activity as MainActivity).goOfflineClicked()
                     dialog.cancel()
                 }

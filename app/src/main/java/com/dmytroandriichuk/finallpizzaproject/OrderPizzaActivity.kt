@@ -32,8 +32,8 @@ class OrderPizzaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_pizza)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_log_out);
-        viewPager = findViewById<ViewPager2>(R.id.imagePager)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_log_out)
+        viewPager = findViewById(R.id.imagePager)
 
         val typedArray = resources.obtainTypedArray(R.array.pizzzaDrawables)
         val imagesId = IntArray(typedArray.length())
@@ -55,8 +55,8 @@ class OrderPizzaActivity : AppCompatActivity() {
         })
 
         val tabLayout = findViewById<TabLayout>(R.id.tabDots)
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            viewPager.setCurrentItem(tab.position, true)
+        TabLayoutMediator(tabLayout, viewPager) { _, position ->
+            viewPager.setCurrentItem(position, true)
         }.attach()
 
 
@@ -101,7 +101,7 @@ class OrderPizzaActivity : AppCompatActivity() {
 
     private fun recalculatePrice() {
         price = pizzaPrice + pizzaPrice * (size.toDouble())/3 + 0.5 * toppingsArray.size
-        findViewById<TextView>(R.id.priceTV).text = "%.2f$".format(price)
+        findViewById<TextView>(R.id.priceTV).text = resources.getString(R.string.format_price).format(price)
     }
 
     private fun getFinalProgressFromCurrent(progress: Int): Int {
@@ -156,7 +156,7 @@ class OrderPizzaActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (System.currentTimeMillis() - startTime < 2000){
             finishAffinity()
-            exitProcess(0);
+            exitProcess(0)
         } else {
             Toast.makeText(
                     this,

@@ -35,18 +35,18 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
         database = Firebase.database
 
-        emailET = findViewById<EditText>(R.id.emailRegistrationET)
-        passwordET = findViewById<EditText>(R.id.passwordlRegistrationET)
-        nameET = findViewById<EditText>(R.id.nameRegistrationET)
+        emailET = findViewById(R.id.emailRegistrationET)
+        passwordET = findViewById(R.id.passwordlRegistrationET)
+        nameET = findViewById(R.id.nameRegistrationET)
 
-        emailLayout = findViewById<TextInputLayout>(R.id.emailRegistrationLayout)
-        passwordLayout = findViewById<TextInputLayout>(R.id.passwordRegistrationLayout)
-        nameLayout = findViewById<TextInputLayout>(R.id.nameRegistrationLayout)
+        emailLayout = findViewById(R.id.emailRegistrationLayout)
+        passwordLayout = findViewById(R.id.passwordRegistrationLayout)
+        nameLayout = findViewById(R.id.nameRegistrationLayout)
 
-        progressBar = findViewById<ProgressBar>(R.id.registrationProgressBar)
+        progressBar = findViewById(R.id.registrationProgressBar)
 
         val registerButton = findViewById<Button>(R.id.confirmRegistrationButton)
         registerButton.setOnClickListener { registerUser() }

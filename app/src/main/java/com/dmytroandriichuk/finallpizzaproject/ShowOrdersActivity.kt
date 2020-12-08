@@ -48,17 +48,17 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_orders)
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
         database = Firebase.database
 
 
         if (intent.getBooleanExtra("Payment Success", false)){
             saveOrderToDB()
         }
-        retryButton = findViewById<Button>(R.id.tryAgainButton)
+        retryButton = findViewById(R.id.tryAgainButton)
         retryButton.setOnClickListener{saveOrderToDB()}
 
-        progerssBar = findViewById<ProgressBar>(R.id.showOrdersProgressBar)
+        progerssBar = findViewById(R.id.showOrdersProgressBar)
         progerssBar.visibility = View.VISIBLE
         itsTimeTV = findViewById(R.id.showOrdersItsTimeTV)
         itsTimeImage = findViewById(R.id.showOrdersNoOrdersImage)
