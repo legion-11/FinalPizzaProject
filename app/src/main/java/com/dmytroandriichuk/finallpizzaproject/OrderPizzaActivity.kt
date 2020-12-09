@@ -176,6 +176,10 @@ class OrderPizzaActivity : AppCompatActivity() {
         R.id.action_settings -> {
             // User chose the "Settings" item, show the app settings UI...
             Log.i("OrderActivity", "onOptionsItemSelected: Settings")
+            intent = Intent(this@OrderPizzaActivity, SavePersonalDataActivity::class.java).apply {
+                putExtra("Payment Success", false)
+            }
+            startActivity(intent)
             true
         }
 

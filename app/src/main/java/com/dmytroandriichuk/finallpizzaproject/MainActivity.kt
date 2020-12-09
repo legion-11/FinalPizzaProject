@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             passwordLayout.error = ""
         }
 
-        if (!errors){
+        if (!errors && progressBar.visibility == View.GONE ){
             progressBar.visibility = View.VISIBLE
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 progressBar.visibility = View.GONE

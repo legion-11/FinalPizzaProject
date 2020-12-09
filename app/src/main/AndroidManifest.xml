@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinallPizzaProject">
-        <activity android:name=".SavePersonalDataActivity"></activity>
+        <activity
+            android:name=".SavePersonalDataActivity"
+            android:windowSoftInputMode="adjustResize" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -21,13 +23,16 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name=".RestorePasswordActivity" />
+        <activity android:name=".RestorePasswordActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ShowOrdersActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".OrderPizzaActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".RegistrationActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

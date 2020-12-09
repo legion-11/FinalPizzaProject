@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dmytroandriichuk.finallpizzaproject.dataClasses.Order
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class OrdersAdapter(private val dataSet: List<Order?>,
@@ -33,6 +35,7 @@ class OrdersAdapter(private val dataSet: List<Order?>,
         }
     }
 
+    val dateFormat =  SimpleDateFormat.getDateTimeInstance()
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
@@ -54,14 +57,14 @@ class OrdersAdapter(private val dataSet: List<Order?>,
         viewHolder.pizzatv.text = "${sizes[order.size ?: 1]}\n${order.pizza}"
 
         viewHolder.toppingstv.text = order.toppings?.joinToString(" ") ?: ""
-        viewHolder.pricetv.text = "${order.price.toString()}$"
+        viewHolder.pricetv.text = "%.2f$".format(order.price)
 
         viewHolder.orderStatusImage.setImageResource(when(order.status) {
             0 -> android.R.drawable.presence_offline
             1 -> android.R.drawable.presence_away
             else -> android.R.drawable.presence_online
         })
-        viewHolder.datetv.text = order.date?.let { Date(it).toString() }
+        viewHolder.datetv.text = order.date?.let {dateFormat.format(Date(it)) }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

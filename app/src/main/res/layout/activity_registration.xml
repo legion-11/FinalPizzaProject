@@ -22,14 +22,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegistrationLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_bias="0.28"
-        tools:layout_editor_absoluteX="193dp">
+        app:layout_constraintVertical_chainStyle="packed"
+        app:startIconDrawable="@drawable/ic_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailRegistrationET"
@@ -37,46 +39,59 @@
 
             android:layout_height="wrap_content"
             android:background="@drawable/edit_round"
-            android:hint="@string/enter_email" />
+            android:hint="@string/enter_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordRegistrationLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/nameRegistrationLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailRegistrationLayout"
-        tools:layout_editor_absoluteX="198dp">
+        app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordlRegistrationET"
-            android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_password" />
+            android:background="@drawable/edit_round"
+            android:hint="@string/enter_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameRegistrationLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toTopOf="@+id/confirmRegistrationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegistrationLayout"
-        tools:layout_editor_absoluteX="207dp">
+        app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameRegistrationET"
-            android:background="@drawable/edit_round"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/full_name" />
+            android:background="@drawable/edit_round"
+            android:hint="@string/full_name"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

@@ -19,6 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.53"
         app:layout_constraintVertical_chainStyle="packed"
         app:startIconDrawable="@drawable/ic_person">
 
@@ -68,15 +69,14 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/savePhoneNumberLayout"
-        app:startIconDrawable="@drawable/ic_phone">
+        app:startIconDrawable="@drawable/ic_email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/saveEmailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="phoneNumberDevice"
-            android:hint="@string/email"
-            android:inputType="phone" />
+            android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -87,10 +87,23 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/save"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveEmailLayout" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="Autofill data"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveNameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

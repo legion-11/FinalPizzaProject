@@ -51,18 +51,18 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         mAuth = FirebaseAuth.getInstance()
         database = Firebase.database
 
+        progerssBar = findViewById(R.id.showOrdersProgressBar)
+        retryButton = findViewById(R.id.tryAgainButton)
+        retryButton.setOnClickListener{saveOrderToDB()}
+        itsTimeTV = findViewById(R.id.showOrdersItsTimeTV)
+        itsTimeImage = findViewById(R.id.showOrdersNoOrdersImage)
+        recyclerView = findViewById(R.id.ordersReciclerView)
 
         if (intent.getBooleanExtra("Payment Success", false)){
             saveOrderToDB()
         }
-        retryButton = findViewById(R.id.tryAgainButton)
-        retryButton.setOnClickListener{saveOrderToDB()}
 
-        progerssBar = findViewById(R.id.showOrdersProgressBar)
         progerssBar.visibility = View.VISIBLE
-        itsTimeTV = findViewById(R.id.showOrdersItsTimeTV)
-        itsTimeImage = findViewById(R.id.showOrdersNoOrdersImage)
-        recyclerView = findViewById(R.id.ordersReciclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -235,7 +235,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
             }
             dialog.setOnDismissListener {
                 refference.removeEventListener(listener)
-                adminLocationLiveData.value = null
+                adminLocationLiveData.removeObservers(this)
             }
             dialog.show()
         }
