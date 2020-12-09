@@ -28,7 +28,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-
+//provide list of current user orders
 class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListener {
 
     private lateinit var retryButton: Button
@@ -71,6 +71,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
             )
         )
 
+        //get data from internet
         ordersLiveData.observe(this, {
             recyclerView.adapter = OrdersAdapter(it, this)
         })
@@ -86,6 +87,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
        // TODO("Not yet implemented")
     }
 
+    // load from firebase orders of current user and update it
     private fun loadFromFireBaseDB(context: Context) {
         querry = database.getReference("Order").orderByChild("userId").equalTo(mAuth.currentUser?.uid)
         listener = object: ValueEventListener  {
@@ -115,6 +117,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         querry.addValueEventListener(listener as ValueEventListener)
     }
 
+    // send order to firebase db
     private fun saveOrderToDB() {
         retryButton.visibility = View.GONE
 
@@ -155,6 +158,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
        // TODO("Not yet implemented")
     }
 
+    //check internet connection
     private fun isOnline(): Boolean {
         val connectivityManager =
             this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -185,6 +189,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
         if (listener != null) { querry.removeEventListener(listener as ValueEventListener) }
     }
 
+    // show admin location if  order status == 1
     override fun onOrderClick(position: Int) {
         val clicked = ordersLiveData.value?.get(position)
         if (clicked?.adminId != null) {
@@ -199,7 +204,7 @@ class ShowOrdersActivity : AppCompatActivity(), OrdersAdapter.OnOrderClickListen
             mMapView.onCreate(dialog.onSaveInstanceState())
             mMapView.onResume() // needed to get the map to display immediately
 
-
+            // update admin marker
             val listener =object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {

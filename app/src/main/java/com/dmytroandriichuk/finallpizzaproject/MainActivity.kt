@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
-
+//screen for log in
 class MainActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
 
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //check input and create user
     private fun userLogIn() {
         val email = emailET.text.toString().trim()
         val password = passwordET.text.toString().trim()
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             passwordLayout.error = ""
         }
 
+        //send email verifiaction letter and create user
         if (!errors && progressBar.visibility == View.GONE ){
             progressBar.visibility = View.VISIBLE
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -121,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //show error message
     private fun buildDialog(message: String){
         val dialog = DialogOffline(message)
         val manager: FragmentManager = supportFragmentManager
@@ -147,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         mAuth.currentUser?.sendEmailVerification()
     }
 
+    //check internet connection
     private fun isOnline(): Boolean {
         val connectivityManager =
                 this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

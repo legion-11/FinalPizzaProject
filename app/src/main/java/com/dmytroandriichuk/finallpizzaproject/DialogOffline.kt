@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.NonNull
 import androidx.fragment.app.DialogFragment
 
+//message about errors and allowing to check orders from local db
 class DialogOffline(private val message: String): DialogFragment() {
     
     @NonNull

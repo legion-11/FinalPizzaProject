@@ -70,6 +70,7 @@ class OrdersAdapter(private val dataSet: List<Order?>,
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
+    // click on list item
     interface OnOrderClickListener {
         fun onOrderClick(position: Int)
     }

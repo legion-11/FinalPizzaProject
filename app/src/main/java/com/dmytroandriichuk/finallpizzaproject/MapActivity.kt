@@ -97,6 +97,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 phoneLayout.error = ""
             }
 
+            //show payment screen
             if (!flag) return@setOnClickListener
             val newIntent = Intent(this@MapActivity, PaymentActivity::class.java).apply {
                 putExtras(intent)
@@ -111,6 +112,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    // get data from address auto complete
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 100 && resultCode == RESULT_OK){
@@ -131,6 +133,5 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     //when map is ready we we activate change mat type button and allowing marker click
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-//        findViewById<ImageButton>(R.id.changeMapType).setOnClickListener { changeMapType() }
     }
 }

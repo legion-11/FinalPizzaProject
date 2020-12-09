@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import com.google.android.material.textfield.TextInputEditText
 
+//save data to sharred prefferences
 class SavePersonalDataActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_save_personal_data)
-
 
         val sharedPreferences = getSharedPreferences("user default", Context.MODE_PRIVATE)
 

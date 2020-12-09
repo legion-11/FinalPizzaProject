@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import kotlin.system.exitProcess
 
-
+//
 class OrderPizzaActivity : AppCompatActivity() {
     private var size: Int = 0
     private lateinit var viewPager: ViewPager2
@@ -27,6 +27,8 @@ class OrderPizzaActivity : AppCompatActivity() {
     private var animation: ObjectAnimator? = null
     private lateinit var seekBar: SeekBar
     private var pizzaPrice: Double = 0.0
+
+    //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_pizza)
@@ -46,6 +48,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         viewPager.adapter = ViewPagerAdapter(imagesId)
         val pizzaNames = resources.getStringArray(R.array.pizzaNames)
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            //set pizza name and its price
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 title = pizzaNames[position]
@@ -60,9 +63,11 @@ class OrderPizzaActivity : AppCompatActivity() {
         }.attach()
 
 
+        // set size from progress of seekBar
         seekBar = findViewById(R.id.seekBar)
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                //rescale image
                 val rescale = 1.1f + progress.toFloat()/seekBar.max
                 viewPager.scaleX = rescale
                 viewPager.scaleY = rescale
@@ -72,6 +77,7 @@ class OrderPizzaActivity : AppCompatActivity() {
                 animation?.cancel()
             }
 
+            //set pizza size and set button
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 size = when(seekBar.progress) {
                     in 0..50 -> 0
@@ -99,11 +105,13 @@ class OrderPizzaActivity : AppCompatActivity() {
         confirmButton.setOnClickListener { saveOrderAndOpenMapActivity() }
     }
 
+    //calculate size
     private fun recalculatePrice() {
         price = pizzaPrice + pizzaPrice * (size.toDouble())/3 + 0.5 * toppingsArray.size
         findViewById<TextView>(R.id.priceTV).text = resources.getString(R.string.format_price).format(price)
     }
 
+    // check size from seekbar progress
     private fun getFinalProgressFromCurrent(progress: Int): Int {
         return when (progress) {
             in 0..50 -> 0
@@ -113,6 +121,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         }
     }
 
+    // setting radiobutton from size
     private fun setRadioButton(id: Int){
         when(id){
             0 -> findViewById<RadioButton>(R.id.radioButtonSmall ).isChecked = true
@@ -122,6 +131,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         }
     }
 
+    // scale immage and set size
     private fun setSizeFromRadiobutton(radioButtonId: Int) {
         animation?.cancel()
         val scaler = when (radioButtonId) {
@@ -143,6 +153,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         animation?.start()
     }
 
+    // proceed to user data specification screen
     private fun saveOrderAndOpenMapActivity() {
         val newIntent = Intent(this@OrderPizzaActivity, MapActivity::class.java).apply {
             putExtra("pizza type", title)
@@ -153,6 +164,7 @@ class OrderPizzaActivity : AppCompatActivity() {
         startActivity(newIntent)
     }
 
+    // press twice to close app
     override fun onBackPressed() {
         if (System.currentTimeMillis() - startTime < 2000){
             finishAffinity()
@@ -172,6 +184,8 @@ class OrderPizzaActivity : AppCompatActivity() {
         return true
     }
 
+
+    // menu buttons action recognition
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             // User chose the "Settings" item, show the app settings UI...
@@ -209,6 +223,7 @@ class OrderPizzaActivity : AppCompatActivity() {
     }
 
 
+    // add topping to list and add it to order price
     fun addRemoveTopping(view: View) {
         if((view as CheckBox).isChecked) {
             toppingsArray.add(view.text.toString())
